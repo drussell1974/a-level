@@ -15,12 +15,4 @@ plt.plot(x1, y1, 'o-')
 plt.title('2 subplots')
 plt.ylabel('damped oscillation')
 
-print(x2)
-print(y2)
-
-plt.subplot(2,1,2)
-plt.plot(x2, y2, '.-')
-plt.xlabel('time (s)')
-plt.ylabel('Undamped')
-
 plt.show()
