@@ -3,15 +3,10 @@ class Node:
         self.value = value
         self.next = next
         
-        
     def __eq__(self, other):
         """ Allow comparison of items """
-        return self.value == other.value
-    
-        
-    def __hash__(self):
-        return ord(self.value) - 65
-        
+        if self.value == other.value:
+            return True
         
     def __str__(self):
         return str(self.value)
@@ -39,7 +34,7 @@ class linked_list:
         return self.lst[key]
     
     
-    def __setitem__(self, key, value):
+    def append(self, value):
         # create new node with pointer
         nd = Node(value=value, next=0)
         
@@ -49,7 +44,7 @@ class linked_list:
         # point the last item at the new item
         self.lst[self._endat].next = self._freepointer
         
-        # update the index of the last item
+        # store the index of the last item
         self._endat = self._freepointer
    
         self._updatePointer()
@@ -65,7 +60,7 @@ class linked_list:
          
         
     
-    def __delitem__(self, ptr):
+    def delete(self, ptr):
         # update the pointer of the previous item
         for item in self.lst:
             if item.next == ptr:
@@ -80,11 +75,13 @@ class linked_list:
         self._freepointer = ptr
         
     
-
+    
 llist = linked_list(4)
-llist["A"] = "A"
-llist["B"] = "B"
-llist["C"] = "C"
+llist.append("A")
+llist.append("B")
+llist.append("C")
+llist.append("D")
+llist.append("E")
 
 for item in llist:
     print(item)
