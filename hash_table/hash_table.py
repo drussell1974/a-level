@@ -1,20 +1,3 @@
-class Node:
-    def __init__(self, key, value):
-        self.key = key
-        self.value = value
-    
-    
-    def __hash__(self):
-        return getHashCode()
-        
-        
-    def getHashCode(self):
-        hash = 0
-        for ch in self.key:
-            hash = hash + ord(str(ch))
-        return hash
-    
-
 class hash_table:
     
     def __init__(self, sizeOfList):
@@ -25,21 +8,21 @@ class hash_table:
             self.lst.append(None)
             
     
-    def get(self, node):
-        """ get the item from the list using 'obj = list[key]' """
-        return self.lst[self.getHashCode(key)]
+    def get(self, item):
+        """ get the item from the list """
+        return self.lst[ord(item[0])]
     
     
-    def set(self, key, node):
-        """ add the item to the list using 'list[key] = obj' """
-        # update into the list
-        self.lst[self.getHashCode(key)] = value
+    def set(self, item):
+        """ add the item to the list """
+        # add to the the list
+        self.lst[ord(item[0])] = item
         self.length = self.length + 1
         
     
-    def delete(self, node):
-        """ void item using 'del list[key]' """
-        self.lst[self.getHashCode(key)] = None
+    def delete(self, item):
+        """ void item """
+        self.lst[ord(item[0])] = None
         self.length = self.length - 1
     
     
@@ -49,18 +32,15 @@ class hash_table:
     
     
     def __str__(self):
-        """ returns a string representation of the object using 'str(list)' """
+        """ returns a string representation of the object using 'str(list)' (or 'print(list)') """
         return str(self.lst)
         
         
 
-    
-
-products = hash_table(465)
-products.set("A", "ice cream")
-products.set("AZZZZ", "fries")
-products.set("ZZZZZ", "burger")
-print(len(products))
+products = hash_table(65 + 26)
+products.set("Ice cream")
+products.set("Fries")
+products.set("Burger")
 print(products)
 
 
