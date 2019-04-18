@@ -1,5 +1,3 @@
-# https://pythontips.com/2013/08/31/fixing-error-maximum-recursion-depth-reached/
-
 import sys
 print(sys.getrecursionlimit())
 #sys.setrecursionlimit(6000)
