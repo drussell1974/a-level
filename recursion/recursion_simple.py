@@ -1,6 +1,9 @@
-def recursion_made_simple(stop_at, current):
-    if current > stop_at:
-        return 1
-    return recursion_made_simple(stop_at, current+1)
-    
-print(recursion_made_simple(2987, 1))
+def sum(number):
+    if number == 0:
+        return number
+    else:
+        return sum(number-1)
+
+import sys
+sys.setrecursionlimit(1000)
+print(sum(998))
