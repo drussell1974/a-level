@@ -1,16 +1,16 @@
 class hash_table:
     
-    def __init__(self, sizeOfList):
+    def __init__(self, max):
         """ Create a fixed size list based on the maxium number items """
-        self.length = 0
+        self.max = max
         self.lst = []
-        for i in range(0, sizeOfList):
+        for i in range(0, max):
             self.lst.append(None)
             
     
     def __getitem__(self, key):
         """ get the item from the list using 'obj = list[key]' """
-        h = self.getHashCode(key)
+        h = self._hash(key)
         # check the location using the hash
         for item in self.lst[h]:
             # find the matching key
@@ -24,7 +24,7 @@ class hash_table:
     def __setitem__(self, key, value):
         """ add the item to the hash table using 'list[key] = obj' """
         # create a hash which will be the index
-        h = self.getHashCode(key)
+        h = self._hash(key)
         # create a key value pair
         kv = [key, value]
         
@@ -42,20 +42,16 @@ class hash_table:
                     return True
             # otherwise append a new value to avoid a collision
             self.lst[h].append(kv)
-                
-                
-        self.length = self.length + 1
         
     
     def __delitem__(self, key):
         """ void item using 'del list[key]' """
-        h = self.getHashCode(key)
+        h = self._hash(key)
         # check the location using the hash
         for item in self.lst[h]:
             # ensure the key matches
             if item[0] == key:
                 item[1] = None
-                self.length = self.length - 1
     
     
     def __len__(self):
@@ -68,15 +64,15 @@ class hash_table:
         return str(self.lst)
         
         
-    def getHashCode(self, key):
-        hash = 0
-        for ch in key:
-            hash = hash + ord(str(ch))
-        return hash
+    def _hash(self, key):
+        num = 0
+        for i in range(len(key)-1):
+            num = num + ord(key[i]) * i
+        print(num % self.max)
+        return num % self.max
         
 
     
-p = hash_table(1)
 products = hash_table(181)
 products["AA"] = "burgar"  # add the first item
 products["AZ"] = "ice cream"  # add a second item
