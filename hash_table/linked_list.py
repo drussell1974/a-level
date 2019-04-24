@@ -7,10 +7,6 @@ class Node:
     def __eq__(self, other):
         """ Allow comparison of items """
         return self.value == other.value
-    
-        
-    def __hash__(self):
-        return ord(self.value) - 65
         
         
     def __str__(self):
@@ -20,47 +16,55 @@ class Node:
 class linked_list:
     
     def __init__(self, sizeOfList):
-        """ Create a fixed size list """
+        """ Create a fixed size list and initialise attributes """
         
-        # initial values
+        ''' Track the first item '''
         self._startat = 0
+        ''' Track the last item '''
         self._endat = 0
+        ''' Track the next empty item '''
         self._freepointer = 0
+        
+        ''' Create the fixed size list '''
         self.lst = []
         
-        # Add empty items to the list
+        ''' Add empty items to the list '''
         for i in range(0, sizeOfList):
-            new_node = Node()
+            new_node = Node() ''' New item '''
             self.lst.append(new_node)
             
     
     def __getitem__(self, key):
-        """ Dictionary """
+        """ TODO: Dictionary """
         return self.lst[key]
     
     
     def __setitem__(self, key, value):
-        # create new node with pointer
+        """ add the item to the list in the next free space """
+        
+        ''' create new node with unknown pointer '''
         nd = Node(value=value, next=0)
         
-        # insert into next available space
+        ''' insert into next available space '''
         self.lst[self._freepointer] = nd
         
-        # point the last item at the new item
+        ''' point the last item at the new item '''
         self.lst[self._endat].next = self._freepointer
         
-        # update the index of the last item
+        ''' track the last item '''
         self._endat = self._freepointer
    
         self._updatePointer()
         
         
     def _updatePointer(self):
-        """ update pointer """
+        """ update pointer by finding the next free space """
         for item in self.lst:
             if item.next == None:
+                ''' get the index of the item '''
                 self._freepointer = self.lst.index(item)
         else:
+            ''' if cannot find item in the list '''
             self._freepointer = -1
          
         
