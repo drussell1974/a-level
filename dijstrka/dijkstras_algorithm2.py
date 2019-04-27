@@ -8,15 +8,18 @@ class Vertex():
         self.edges = []
         
     def __cmp__(self, other):
+        """ Override Compare (Used to prioritise the Vertex in the priority queue """
         return self.cmp(self.min_distance_from_start, other.min_distance_from_start)
     
     def __lt__(self, other):
+        """ Override Less Than (Used to prioritise the Vertex in the priority queue """
         selfP = self.min_distance_from_start
         otherP = other.min_distance_from_start
         return selfP < otherP
     
     def __str__(self):
-        return self.key
+        """ string """
+        return str(self.key)
     
 class Edge():
 
@@ -25,16 +28,22 @@ class Edge():
         self.start = start
         self.target = target
 
+
+""" Use Python priority queue """
 import heapq
 
 class Dijkstra():
     def calculate(self, vertices, startV):
+        """ The priority queue """
         queue = []
+        
         startV.min_distance_from_start = 0
+        
+        """ add the starting vertex to the priority queue """
         heapq.heappush(queue, startV)
         
         while len(queue) > 0:
-            
+            """return the smallest item from the heap"""
             currV = heapq.heappop(queue)
             
             for edge in currV.edges:
@@ -45,6 +54,7 @@ class Dijkstra():
                 if distance < v.min_distance_from_start:
                     v.previous = u;
                     v.min_distance_from_start = distance
+                    """ add to the priority queue """
                     heapq.heappush(queue, v)
                     
     def shortestPathTo(self, target):
