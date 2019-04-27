@@ -1,80 +1,67 @@
-
-
-class Graph(): 
-
-    def __init__(self, vertices): 
-        self.V = vertices 
-        self.graph = [[0 for column in range(vertices)] 
-                    for row in range(vertices)] 
-
-    def _printSolution(self, dist): 
-        print("Vertex tDistance from Source")
-        for node in range(self.V): 
-            print(node,"\t",dist[node])
-
-    
-    def _minDistance(self, dist, sptSet):
-        """
-        A utility function to find the vertex with 
-        minimum distance value, from the set of vertices 
-        not yet included in shortest path tree
-        """
-        ''' Initilaize minimum distance for next node '''
-        min = float("inf")
-
-        ''' Search not nearest vertex not in the 
-            shortest path tree '''
-        for v in range(self.V): 
-            if dist[v] < min and sptSet[v] == False: 
-                min = dist[v] 
-                min_index = v 
-
-        return min_index 
-
-     
-    def dijkstra(self, src): 
-        """
-        Funtion that implements Dijkstras single source 
-        shortest path algorithm for a graph represented 
-        using adjacency matrix representation
-        """
-        dist = [float("inf")] * self.V # create the queue array of infinate nodes
-        dist[src] = 0 # set start distance as zero
-        sptSet = [False] * self.V # the visited nodes
+class Vertex():
+    def __init__(self, key):
+        self.key = key
+        self.visited = False
+        self.min_distance_from_start = float("inf")
+        self.previous = None
+        self.edges = []
         
-        for cout in range(self.V):
+    def __cmp__(self, other):
+        """ Override Compare (Used to prioritise the Vertex in the priority queue """
+        return self.cmp(self.min_distance_from_start, other.min_distance_from_start)
+    
+    def __lt__(self, other):
+        """ Override Less Than (Used to prioritise the Vertex in the priority queue """
+        selfP = self.min_distance_from_start
+        otherP = other.min_distance_from_start
+        return selfP < otherP
+    
+    def __str__(self):
+        """ string """
+        return str(self.key)
+    
+class Edge():
 
-            ''' Pick the minimum distance vertex from 
-                the set of vertices not yet processed. 
-                u is always equal to src in first iteration '''
-            u = self._minDistance(dist, sptSet) 
-
-            ''' Put the minimum distance vertex in the 
-                shotest path tree '''
-            sptSet[u] = True
-
-            ''' Update dist value of the adjacent vertices 
-                of the picked vertex only if the current 
-                distance is greater than new distance and 
-                the vertex in not in the shotest path tree '''
-            for v in range(self.V): 
-                if self.graph[u][v] > 0 and sptSet[v] == False and dist[v] > dist[u] + self.graph[u][v]: 
-                    dist[v] = dist[u] + self.graph[u][v] 
-
-        self._printSolution(dist) 
+    def __init__(self, weight, start, target):
+        self.weight = weight
+        self.start = start
+        self.target = target
 
 
-if __name__ == '__main__':
-    g = Graph(9) 
-    g.graph = [[0, 4, 0, 0, 0, 0, 0, 8, 0], 
-            [4, 0, 8, 0, 0, 0, 0, 11, 0], 
-            [0, 8, 0, 7, 0, 4, 0, 0, 2], 
-            [0, 0, 7, 0, 9, 14, 0, 0, 0], 
-            [0, 0, 0, 9, 0, 10, 0, 0, 0], 
-            [0, 0, 4, 14, 10, 0, 2, 0, 0], 
-            [0, 0, 0, 0, 0, 2, 0, 1, 6], 
-            [8, 11, 0, 0, 0, 0, 1, 0, 7], 
-            [0, 0, 2, 0, 0, 0, 6, 7, 0] 
-            ]; 
+""" Use Python priority queue """
+import heapq
 
-    g.dijkstra(0); 
+def getShortestPath(vertices, startV, target):
+    
+    """ The priority queue """
+    queue = []
+    
+    startV.min_distance_from_start = 0
+    
+    """ add the starting vertex to the priority queue """
+    heapq.heappush(queue, startV)
+    
+    while len(queue) > 0:
+        """return the smallest item from the heap"""
+        currV = heapq.heappop(queue)
+        
+        for edge in currV.edges:
+            u = edge.start
+            v = edge.target
+            distance = u.min_distance_from_start + edge.weight
+            #print("checking if new distance", distance, "is less than", v.min_distance_from_start)
+            if distance < v.min_distance_from_start:
+                v.previous = u;
+                v.min_distance_from_start = distance
+                """ add to the priority queue """
+                heapq.heappush(queue, v)
+                
+    node = target
+    shortestPath = []
+    while node is not None:
+        #print("%s > " % node, end="")
+        shortestPath.append(node.key)
+        node = node.previous
+        
+    return shortestPath
+
