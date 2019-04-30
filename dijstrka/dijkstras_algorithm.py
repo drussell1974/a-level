@@ -1,6 +1,8 @@
 class Vertex():
     def __init__(self, key):
+        """ Initial values for the Vertex """
         self.key = key
+        """ Default properties """
         self.min_distance_from_start = float("inf")
         self.previous = None
         self.edges = []
@@ -16,11 +18,11 @@ class Vertex():
         return selfP < otherP
     
 class Edge():
-
-    def __init__(self, weight, start, target):
+    def __init__(self, weight, startV, targetV):
+        """ Initial values for the edge """
         self.weight = weight
-        self.start = start
-        self.target = target
+        self.startV = startV # vertex
+        self.targetV = targetV # vertex
 
 
 """ Use Python priority queue """
@@ -28,33 +30,38 @@ import heapq
 
 def getShortestPath(vertices, startV, target):
     
-    """ The priority queue """
+    """ The priority queue (use headq to order the vertices by distance from start) """
     queue = []
     
+    """ start node is zero distance from itself """
     startV.min_distance_from_start = 0
     
     """ add the starting vertex to the priority queue """
     heapq.heappush(queue, startV)
     
     while len(queue) > 0:
-        """return the smallest item from the heap"""
+        """ get the item with the shorest distance from the start """
         currV = heapq.heappop(queue)
         
+        """ check the weight each edge """
         for edge in currV.edges:
-            u = edge.start
-            v = edge.target
+            u = edge.startV
+            v = edge.targetV
+            """ add the weight to the distance from the start for this edge """
             distance = u.min_distance_from_start + edge.weight
-            #print("checking if new distance", distance, "is less than", v.min_distance_from_start)
+            """ checking if new distance is less than min_distance_from_start """
             if distance < v.min_distance_from_start:
+                """ the current vertex is now the new path """
                 v.previous = u;
+                """ update the distance from the start (now the shorter distance) """
                 v.min_distance_from_start = distance
                 """ add to the priority queue """
                 heapq.heappush(queue, v)
-                
+    
+    """ work through the nodes back to the start """
     node = target
     shortestPath = []
     while node is not None:
-        #print("%s > " % node, end="")
         shortestPath.append(node.key)
         node = node.previous
         
