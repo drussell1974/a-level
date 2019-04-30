@@ -49,7 +49,7 @@ def getShortestPath(vertices, startV, target):
             v = edge.targetV
             """ add the weight to the distance from the start for this edge """
             distance = u.min_distance_from_start + edge.weight
-            """ checking if new distance is less than min_distance_from_start """
+            """ checking if new distance is less than distance from the start """
             if distance < v.min_distance_from_start:
                 """ the current vertex is now the new path """
                 v.previous = u;
