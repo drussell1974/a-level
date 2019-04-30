@@ -1,6 +1,9 @@
 class Base:
     def __init__(self, id):
         self.id = int(id)
+        clear_errors()
+        
+    def clear_errors():
         self.errors = []
        
     def add_error(self, message):
