@@ -11,8 +11,10 @@ def add_product():
     product_qty = int(input("Enter number of items in stock: "))
 
     new_prod = Product(product_id, product_name, product_price, product_qty)
-
-    datastore.add_product(new_prod)
+    if new_prod.has_errors() == False:
+        datastore.add_product(new_prod)
+    else:
+        print("Product is not valid: ", new_prod.get_errors())
 
 def view_single_item():
     print("****************")
