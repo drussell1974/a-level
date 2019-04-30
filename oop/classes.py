@@ -9,5 +9,5 @@ class Product:
         
 class ProductType:
     def __init__(self, id, name):
-        self.id = id
+        self.id = int(id)
         self.name = name
