@@ -34,6 +34,6 @@ nodeI.edges.append(edgeIS)
 vertices = {nodeB, nodeC, nodeG, nodeI, nodeS, nodeT}
 
 
-route = getShortestPath(vertices, nodeT, nodeI)
+route = getShortestPath(vertices, nodeB, nodeI)
 
 print(route)

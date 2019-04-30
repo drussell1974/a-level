@@ -1,7 +1,6 @@
 class Vertex():
     def __init__(self, key):
         self.key = key
-        self.visited = False
         self.min_distance_from_start = float("inf")
         self.previous = None
         self.edges = []
@@ -15,10 +14,6 @@ class Vertex():
         selfP = self.min_distance_from_start
         otherP = other.min_distance_from_start
         return selfP < otherP
-    
-    def __str__(self):
-        """ string """
-        return str(self.key)
     
 class Edge():
 
