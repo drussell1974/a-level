@@ -13,7 +13,7 @@ class Base:
         return self.errors
     
 
-class Product:
+class Product(Base):
     def __init__(self, id = 0, name = "", price = 0.0, quanity_in_stock = 0):
         self.super().__init__(id)
         set_name(name)
@@ -39,7 +39,7 @@ class Product:
             self.price = int(quanity_in_stock)
 
             
-class ProductType:
+class ProductType(Base):
     def __init__(self, id, name):
         self.super().__init__(id, name)
         self.name = str(name)
