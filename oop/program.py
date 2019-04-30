@@ -1,7 +1,6 @@
 import datastore # import the whole module
 from classes import Product # import specific class from module
 
-
 def add_product():
     print("***********")
     print("ADD PRODUCT")
