@@ -6,7 +6,6 @@ class InOrderSearchTree:
         self.right = None
         self.data = data
 
-
     def insert(self, data):
 
         if self.data:
@@ -23,14 +22,12 @@ class InOrderSearchTree:
         else:
             self.data = data
 
-
     def print_tree(self):
         if self.left:
             self.left.PrintTree()
         print( self.data),
         if self.right:
             self.right.PrintTree()
-
 
     def search(self, root):
         res = []
