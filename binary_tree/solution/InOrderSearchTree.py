@@ -1,6 +1,6 @@
 from SearchTree import SearchTree
 
-class InOrderTreeSearch(SearchTree):
+class InOrderSearchTree(SearchTree):
 
     def __init__(self, data):
         super().__init__(data)
@@ -15,7 +15,7 @@ class InOrderTreeSearch(SearchTree):
     
 # TESTS
 if __name__ == '__main__':
-    root = InOrderTreeSearch(27)
+    root = InOrderSearchTree(27)
     root.insert(14)
     root.insert(35)
     root.insert(10)
