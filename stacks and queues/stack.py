@@ -11,8 +11,8 @@ class Stack(StaticArray):
     def pop(self):
         """ get the item and remove it from the top of the stack """
         # get the item before removing it
-        item = self._get(self.pointer)
-        self._remove(self.pointer)
+        item = self.get(self.pointer)
+        self.remove(self.pointer)
         # decrement pointer
         self.pointer = self.pointer - 1
         
@@ -23,7 +23,7 @@ class Stack(StaticArray):
         """ add an item to the top of stack """
         # increment pointer and put the item on top of the stack
         self.pointer = self.pointer + 1
-        self._put(self.pointer, item)
+        self.set(self.pointer, item)
 
     
 if __name__ == '__main__':
@@ -34,7 +34,7 @@ if __name__ == '__main__':
     q.push("I")
     q.push("am")
     q.push("the")
-    print("Populated:", q)
+    print("Populated:", q, ",Count:", len(q))
     assert len(q) == 3, "length should be 3"
 
     item = q.pop()
@@ -46,11 +46,10 @@ if __name__ == '__main__':
     assert len(q) == 1, "length should be 1"
 
     q.push("one")
-    print("Add another item 'one':", q)
+    print("Add another item 'one':", q, ",Count:", len(q))
     assert len(q) == 2, "length should be 2"
 
     item = q.pop()
+    print("Remove item:", q, ",Count:", len(q))
     assert len(q) == 1, "length should be 1"
     assert item == "one", "pop() should dequeue 'one' (the last item pushed)"
-
-    print("stack should have only one item:", q)

@@ -8,19 +8,19 @@ class StaticArray:
         # the number of items with a non-Null value
         self._virtual_length = 0
 
-    def _remove(self, index):
+    def remove(self, index):
         """ set the item at index position to None """
         self._lst[index] = None
-        # Decrement the length of Array
+        # Decrement the length
         self._virtual_length = self._virtual_length - 1
 
-    def _put(self, index, item):
+    def put(self, index, item):
         """ set the item at index postion """
         self._lst[index] = item
-        # increment the length of Array
+        # increment the length
         self._virtual_length = self._virtual_length + 1
         
-    def _get(self, index):
+    def get(self, index):
         return self._lst[index]
         
     def __str__(self):

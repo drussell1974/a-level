@@ -15,17 +15,17 @@ class Queue(StaticArray):
         # get the item from the top of the queue
         # increment the head pointer and get the item before removing
         self.head_pointer = self.head_pointer + 1
-        item = self._get(self.head_pointer)
-        self._remove(self.head_pointer)
+        item = self.get(self.head_pointer)
+        self.remove(self.head_pointer)
         
         return item
     
     
     def push(self, item):
         """ Enqueue to bottom of list """
-        # increment tail pointer and put the item at the back of the queue
+        # increment tail pointer and set the item at the back of the queue
         self.tail_pointer = self.tail_pointer + 1
-        self._put(self.tail_pointer, item)
+        self.set(self.tail_pointer, item)
 
     
 if __name__ == '__main__':
@@ -36,7 +36,7 @@ if __name__ == '__main__':
     q.push("I")
     q.push("am")
     q.push("the")
-    print("Populated:", q)
+    print("Populated:", q, ",Count:", len(q))
     assert len(q) == 3, "length should be 3"
 
     item = q.pop()
@@ -48,11 +48,11 @@ if __name__ == '__main__':
     assert len(q) == 1, "length should be 1"
 
     q.push("one")
-    print("Add another item:", q)
+    print("Add another item:", q, ",Count:", len(q))
     assert len(q) == 2, "length should be 2"
 
     item = q.pop()
+    print("Check the final list:", q, ",Count:", len(q))
     assert item == "the", "pop() should dequeue 'the'"
     assert len(q) == 1, "length should be 1"
 
-    print("Check the final list:", q)
